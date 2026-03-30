@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)file:///C:/Users/johnb/Downloads/lumala_round1_clean_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LuMaLa | FF&amp;E Manager</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f1eb;color:#2c2820;font-size:13px}
+:root{--gold:#b8924e;--dark:#1a1712;--cream:#faf8f4;--border:#e8e0d4;--muted:#a0958a;--green:#2d6a4f;--red:#8b1a1a}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:13px;color:#2c2820;outline:none;box-sizing:border-box}
+a{text-decoration:none}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+#app{display:flex;min-height:100vh}
+#sidebar{width:220px;min-width:220px;background:var(--dark);color:#d4c4a0;display:flex;flex-direction:column;min-height:100vh}
+#main{flex:1;display:flex;flex-direction:column;min-width:0}
+#topbar{background:#fff;border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#content{flex:1;overflow:auto;padding:20px 24px}
+
+.logo{padding:24px 20px 18px;border-bottom:1px solid #2a2520}
+.logo-title{font-size:22px;font-weight:400;letter-spacing:3px;color:#d4c4a0;font-family:Georgia,serif}
+.logo-sub{font-size:9px;letter-spacing:4px;color:#5a5048;text-transform:uppercase;margin-top:3px}
+.logo-rule{width:24px;height:1px;background:var(--gold);margin-top:8px}
+.nav-item{padding:9px 20px;cursor:pointer;font-size:12px;color:#7a6e5e;border-left:2px solid transparent}
+.nav-item:hover,.nav-item.active{background:#1e1a16;color:#d4c4a0;border-left-color:var(--gold)}
+.nav-section{padding:12px 20px 5px;font-size:9px;letter-spacing:3px;color:#4a4030;text-transform:uppercase;font-weight:600}
+.proj-item{padding:8px 20px;cursor:pointer;border-left:2px solid transparent}
+.proj-item:hover,.proj-item.active{background:#1e1a16;border-left-color:var(--gold)}
+.proj-name{font-size:12px;color:#9a8e7e}
+.proj-item.active .proj-name{color:#d4c4a0}
+.proj-meta{font-size:10px;color:#4a4030;margin-top:1px}
+
+.page-title{font-size:24px;font-weight:400;letter-spacing:.5px;color:var(--dark);font-family:Georgia,serif}
+.page-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.topbar-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+.btn{padding:8px 16px;border:1px solid #d0c8bc;background:transparent;color:#6a6058;font-size:12px;white-space:nowrap}
+.btn:hover{background:#f0ece4}
+.btn-dark{border:none;background:var(--dark);color:#d4c4a0}
+.btn-dark:hover{background:#2a2520}
+.btn-gold{border:none;background:var(--gold);color:#fff}
+.btn-gold:hover{background:#a07840}
+.btn-sm{padding:4px 10px;font-size:11px;border:1px solid #e0d8cc;background:transparent;color:#7a7068}
+.btn-del{padding:4px 8px;font-size:11px;border:1px solid #f5c6c6;background:transparent;color:#b05050}
+
+.stats-row{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.stat-card{background:#fff;border:1px solid var(--border);padding:14px 18px;flex:1;min-width:100px}
+.stat-val{font-size:26px;font-weight:300;color:var(--dark);font-family:Georgia,serif;line-height:1}
+.stat-val.accent{color:var(--gold)}
+.stat-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+.pill{border-radius:2px;padding:2px 8px;font-size:10.5px;font-weight:600;white-space:nowrap;border:1px solid;display:inline-block}
+
+.room-header{display:flex;align-items:center;gap:12px;margin-bottom:7px}
+.room-label{font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;white-space:nowrap}
+.room-rule{flex:1;height:1px;background:var(--border)}
+.tbl-wrap{overflow-x:auto;margin-bottom:20px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border)}
+th{background:var(--dark);color:var(--gold);padding:9px 11px;text-align:left;font-size:9px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;font-weight:600}
+td{padding:9px 11px;border-bottom:1px solid #f0ebe2;vertical-align:middle}
+tr:nth-child(even) td{background:#faf8f4}
+tfoot td{background:var(--dark);color:#d4c4a0;padding:9px 11px;font-size:10px;letter-spacing:2px;text-transform:uppercase}
+
+.filter-bar{background:#fff;border:1px solid var(--border);padding:12px 16px;margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filter-bar input,.filter-bar select{padding:6px 10px;border:1px solid #ddd7cc;background:var(--cream)}
+
+.grand-total{background:var(--dark);padding:13px 18px;display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.gt-label{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase}
+.gt-val{font-size:24px;font-weight:300;color:#d4c4a0;font-family:Georgia,serif}
+
+.card{background:#fff;border:1px solid var(--border);padding:18px 22px;margin-bottom:10px}
+.card-title{font-size:19px;font-weight:400;font-family:Georgia,serif}
+.contact-link{color:var(--gold)}
+.room-chip{background:#f0e8d8;padding:3px 9px;font-size:11px;display:inline-block;margin:2px 3px 0 0}
+.progress-bar{margin-top:12px;background:#f0ebe2;height:3px}
+.progress-fill{height:100%;background:var(--gold)}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(20,18,15,.55);z-index:1000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.modal-box{background:var(--cream);width:780px;max-width:96vw;max-height:92vh;overflow:auto;box-shadow:0 40px 100px rgba(0,0,0,.3);border:1px solid #e2dbd0}
+.modal-hd{background:var(--dark);padding:16px 22px;display:flex;justify-content:space-between;align-items:flex-start;position:sticky;top:0;z-index:2}
+.modal-title{font-size:19px;font-weight:400;color:#d4c4a0;font-family:Georgia,serif}
+.modal-sub{font-size:10px;color:#7a6e58;letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+.modal-close{background:none;border:none;color:#7a6e58;font-size:22px;line-height:1}
+.modal-body{padding:22px}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.field{margin-bottom:13px}
+.field.full{grid-column:span 2}
+.field label{display:block;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%;padding:7px 10px;border:1px solid #ddd7cc;background:var(--cream)}
+.field textarea{height:58px;resize:vertical}
+.section-head{display:flex;align-items:center;gap:12px;margin:16px 0 10px}
+.section-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;white-space:nowrap}
+.section-rule{flex:1;height:1px;background:var(--border)}
+.contact-row-box{background:var(--cream);border:1px solid var(--border);padding:11px 13px;margin-bottom:7px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 11px}
+.clabel{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:3px}
+.cinput{width:100%;padding:6px 9px;border:1px solid #ddd7cc;background:#fff}
+.group-tabs{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:8px}
+.group-tab{padding:3px 9px;font-size:10px;cursor:pointer;border:1px solid #ddd7cc;background:transparent;color:#7a6e5e}
+.group-tab.active{border-color:var(--dark);background:var(--dark);color:#d4c4a0}
+.chip{padding:5px 11px;font-size:12px;cursor:pointer;user-select:none;border:1px solid #ddd7cc;background:var(--cream);color:#5a5048;display:inline-block;margin:2px}
+.chip.on{border-color:var(--gold);background:#fdf5e6;color:#7a5a10}
+.selected-rooms{margin-top:10px;padding:9px 12px;background:#f5f0e8;border:1px solid var(--border)}
+.room-tag{background:#fff;border:1px solid #d4a843;color:#7a5a10;padding:3px 9px;font-size:11px;display:inline-flex;align-items:center;gap:4px;margin:2px}
+.form-footer{display:flex;justify-content:flex-end;gap:8px;padding-top:14px;border-top:1px solid var(--border);margin-top:14px}
+.egnyte-ok{margin-top:4px;font-size:11px;color:var(--green)}
+.other-input{margin-top:5px;width:100%;padding:7px 10px;border:1px solid #d4a843;background:#fdf8ee}
+.new-proj-btn{margin:10px 16px;width:calc(100% - 32px);padding:7px;background:transparent;border:1px solid #2a2520;color:#5a5048;font-size:11px;letter-spacing:1px}
+
+/* Toast */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--dark);color:#d4c4a0;padding:12px 20px;font-size:12px;letter-spacing:.5px;z-index:9999;display:none;border-left:3px solid var(--gold)}
+
+/* Loading */
+.loading{text-align:center;padding:40px;color:var(--muted);font-family:Georgia,serif;font-size:18px;font-style:italic}
+
+/* Vendor card */
+.vendor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.vendor-card{background:#fff;border:1px solid var(--border);padding:16px 18px}
+.vendor-name{font-size:16px;font-weight:500;color:var(--dark)}
+.vendor-cat{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-top:2px}
+.vendor-detail{font-size:11.5px;color:#4a4038;margin-top:8px;line-height:1.8}
+
+/* Intake */
+.intake-card{background:#fff;border:1px solid var(--border);padding:14px 18px;margin-bottom:8px}
+.intake-type{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:4px}
+.intake-content{font-size:13px;color:var(--dark);line-height:1.6}
+.intake-meta{font-size:10.5px;color:var(--muted);margin-top:4px}
+
+/* Communications */
+.comm-card{background:#fff;border:1px solid var(--border);padding:14px 18px;margin-bottom:8px;border-left:3px solid var(--border)}
+.comm-card.call{border-left-color:#1a4f82}.comm-card.email{border-left-color:#2d6a4f}
+.comm-card.site-visit{border-left-color:#8a4400}.comm-card.meeting{border-left-color:#4a2080}
+.comm-card.note{border-left-color:var(--gold)}
+.comm-type{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:3px}
+.comm-summary{font-size:13px;color:var(--dark);line-height:1.6}
+.comm-actions-block{margin-top:8px;padding-top:8px;border-top:1px solid #f0ebe2}
+.comm-action-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px}
+.comm-action-item input[type=checkbox]{width:14px;height:14px;cursor:pointer;accent-color:var(--gold)}
+.comm-action-item.done span{text-decoration:line-through;color:var(--muted)}
+.comm-meta{font-size:10.5px;color:var(--muted);margin-top:6px}
+.comm-tabs{display:flex;margin-bottom:14px;border:1px solid var(--border)}
+.comm-tab{flex:1;padding:9px;text-align:center;cursor:pointer;font-size:11px;letter-spacing:1px;text-transform:uppercase;background:#fff;color:var(--muted);border:none;border-right:1px solid var(--border)}
+.comm-tab:last-child{border-right:none}
+.comm-tab.active{background:var(--dark);color:#d4c4a0}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="sidebar">
+    <div class="logo">
+      <div class="logo-title">LuMaLa</div>
+      <div class="logo-sub">Interior Design</div>
+      <div class="logo-rule"></div>
+    </div>
+    <div style="padding:12px 0 4px">
+      <div class="nav-item active" data-nav="dashboard">Overview</div>
+      <div class="nav-item " data-nav="projects">Projects</div>
+      <div class="nav-item " data-nav="vendors">Vendor Library</div>
+    </div>
+    <div class="nav-section">Active Projects</div>
+    
+      <div class="proj-item " data-proj="3f56b9f1-5a21-4406-ba32-60601d6d1760">
+        <div class="proj-name">Test 2</div>
+        <div class="proj-meta">0 items · Design Phase</div>
+      </div>
+      <div class="proj-item " data-proj="d40bb67b-4fce-4664-ae8a-ae075ada9ecc">
+        <div class="proj-name">Test Project </div>
+        <div class="proj-meta">0 items · Design Phase</div>
+      </div>
+    <button class="new-proj-btn" id="btn-new-proj">+ New Project</button>
+    <div style="flex:1"></div>
+    <div style="padding:14px 20px;border-top:1px solid #1e1a16;font-size:10px;color:#3a3428">
+      FF&amp;E Platform<br><span style="color:var(--gold)">LuMaLa Interior Design</span>
+    </div>
+  </div>
+  <div id="main">
+    <div id="topbar">
+      <div>
+        <div class="page-title">Overview</div>
+        
+      </div>
+      <div class="topbar-actions"></div>
+    </div>
+    <div id="content"><div class="stats-row">
+    <div class="stat-card"><div class="stat-val">2</div><div class="stat-lbl">Active Projects</div></div>
+    <div class="stat-card"><div class="stat-val">0</div><div class="stat-lbl">Total Items</div></div>
+    <div class="stat-card"><div class="stat-val accent">$0</div><div class="stat-lbl">Portfolio Value</div></div>
+    <div class="stat-card"><div class="stat-val">0</div><div class="stat-lbl">Pending Approval</div></div>
+    <div class="stat-card"><div class="stat-val">0</div><div class="stat-lbl">Vendors</div></div>
+  </div><div class="card" style="cursor:pointer" data-proj-go="3f56b9f1-5a21-4406-ba32-60601d6d1760">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+        <div><div class="card-title">Test 2</div>
+          <div style="font-size:11.5px;color:var(--muted);margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            8555 E Tecolote Cr &nbsp;<span class="pill" style="background:#f5f5f5;color:#777;border-color:#ddd">Design Phase</span>
+            
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:22px;font-weight:300;color:var(--gold);font-family:Georgia,serif">$0</div>
+          <div style="font-size:10.5px;color:var(--muted)">0 items</div>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10.5px;color:var(--muted)">
+        <span>0% client-approved</span><span>0 of 0</span>
+      </div>
+    </div><div class="card" style="cursor:pointer" data-proj-go="d40bb67b-4fce-4664-ae8a-ae075ada9ecc">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+        <div><div class="card-title">Test Project </div>
+          <div style="font-size:11.5px;color:var(--muted);margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            8555 E Tecolote Cr &nbsp;<span class="pill" style="background:#f5f5f5;color:#777;border-color:#ddd">Design Phase</span>
+            
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:22px;font-weight:300;color:var(--gold);font-family:Georgia,serif">$0</div>
+          <div style="font-size:10.5px;color:var(--muted)">0 items</div>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10.5px;color:var(--muted)">
+        <span>0% client-approved</span><span>0 of 0</span>
+      </div>
+    </div></div>
+  </div>
+  </div>
+<div id="toast"></div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const SUPA_URL = "https://lxnxuswbopmoazujlyae.supabase.co";
+const SUPA_KEY = "sb_publishable_35YzEyXIvCjpxy7DsAOwGg_G6lr8sDt";
+
+// ─── SUPABASE CLIENT ──────────────────────────────────────────────────────────
+const db = {
+  async query(table, options = {}) {
+    let url = `${SUPA_URL}/rest/v1/${table}?`;
+    if (options.select) url += `select=${encodeURIComponent(options.select)}&`;
+    if (options.filter) url += `${options.filter}&`;
+    if (options.order) url += `order=${options.order}&`;
+    const res = await fetch(url, {
+      headers: {
+        "apikey": SUPA_KEY,
+        "Authorization": `Bearer ${SUPA_KEY}`,
+        "Content-Type": "application/json"
+      }
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+  async insert(table, data) {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${table}`, {
+      method: "POST",
+      headers: {
+        "apikey": SUPA_KEY,
+        "Authorization": `Bearer ${SUPA_KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=representation"
+      },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+  async update(table, id, data) {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${table}?id=eq.${id}`, {
+      method: "PATCH",
+      headers: {
+        "apikey": SUPA_KEY,
+        "Authorization": `Bearer ${SUPA_KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=representation"
+      },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+  async delete(table, id) {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${table}?id=eq.${id}`, {
+      method: "DELETE",
+      headers: {
+        "apikey": SUPA_KEY,
+        "Authorization": `Bearer ${SUPA_KEY}`
+      }
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return true;
+  }
+};
+
+// ─── CONSTANTS ────────────────────────────────────────────────────────────────
+const CLIENT_STATUSES = ["Pending","Approved","Revision","Rejected","On Hold"];
+const GC_STATUSES = ["Not Submitted","Submitted","Acknowledged","Scheduled","Installed"];
+const PROC_STATUSES = ["Specifying","Quoted","PO Issued","Ordered","Shipped","Delivered","Installed"];
+const CATEGORIES = ["Furniture","Seating","Lighting","Textiles","Art","Rugs","Equipment","Plumbing","Hardware","Window Treatments","Flooring","Accessories","Custom Millwork","Other"];
+const PROJECT_STATUSES = ["Design Phase","Procurement","Installation","Punch List","Complete","On Hold"];
+const CONTACT_ROLES = ["Primary Contact","Owner","Co-Owner","Spouse / Partner","Decision Maker","Billing Contact","Property Manager","Assistant","Other"];
+const GC_ROLES = ["Project Manager","Site Superintendent","Owner / Principal","Estimator","Admin / Office","Subcontractor","Other"];
+const VENDOR_CATS = ["Furniture","Seating","Lighting","Textiles","Art","Rugs","Plumbing","Hardware","Flooring","Window Treatments","Accessories","Appliances","Stone & Tile","Paint","Wallcovering","Other"];
+
+const ROOM_PRESETS = [
+  {g:"Bedrooms",r:["Primary Suite","Bedroom 2","Bedroom 3","Bedroom 4","Bedroom 5","Bedroom 6","Guest Suite","Nanny / Au Pair Suite","Bunk Room","Nursery"]},
+  {g:"Bathrooms",r:["Primary Bath","Bath 2","Bath 3","Bath 4","Powder Room","Pool Bath","Outdoor Bath"]},
+  {g:"Living Spaces",r:["Living Room","Great Room","Family Room","Formal Living","Sitting Room","Sunroom","Florida Room"]},
+  {g:"Dining",r:["Dining Room","Formal Dining","Breakfast Nook","Breakfast Room","Butler's Pantry"]},
+  {g:"Kitchen",r:["Kitchen","Chef's Kitchen","Catering Kitchen","Kitchenette","Pantry"]},
+  {g:"Work & Study",r:["Study","Home Office","Library","Craft Room","Music Room","Recording Studio"]},
+  {g:"Leisure",r:["Media Room","Home Theater","Game Room","Billiards Room","Bar / Lounge","Wine Cellar","Cigar Room"]},
+  {g:"Wellness",r:["Gym / Fitness","Yoga Studio","Spa Room","Sauna","Steam Room","Indoor Pool"]},
+  {g:"Entryways",r:["Foyer / Entry","Mudroom","Breezeway"]},
+  {g:"Outdoor",r:["Patio","Terrace","Covered Porch","Pool House","Cabana","Outdoor Kitchen","Loggia","Balcony"]},
+  {g:"Support",r:["Laundry Room","Utility Room","Storage Room","Mechanical Room"]},
+  {g:"Garage & ADU",r:["Garage","Garage Apartment","Guest House / Casita","ADU"]},
+];
+const ALL_PRESET = new Set(ROOM_PRESETS.flatMap(g => g.r));
+
+const PILL_STYLES = {
+  "Approved":{bg:"#edf6f0",fg:"#2d6a4f",bd:"#b7dfc9"},"Pending":{bg:"#fef9ec",fg:"#7d5a00",bd:"#f0d87a"},
+  "Revision":{bg:"#fff3e6",fg:"#8a4400",bd:"#f5c28a"},"Rejected":{bg:"#fdecea",fg:"#8b1a1a",bd:"#f5b7b1"},
+  "On Hold":{bg:"#f5f5f5",fg:"#555",bd:"#ccc"},"Not Submitted":{bg:"#f5f5f5",fg:"#888",bd:"#ddd"},
+  "Submitted":{bg:"#e8f2fb",fg:"#1a4f82",bd:"#a8cdf0"},"Acknowledged":{bg:"#eef4e8",fg:"#2d5a1b",bd:"#b2d79a"},
+  "Scheduled":{bg:"#f0ecf8",fg:"#4a2080",bd:"#c8adee"},"Installed":{bg:"#edf6f0",fg:"#1a5c38",bd:"#7fc4a0"},
+  "Specifying":{bg:"#f5f5f5",fg:"#888",bd:"#ddd"},"Quoted":{bg:"#fef9ec",fg:"#7d5a00",bd:"#f0d87a"},
+  "PO Issued":{bg:"#fff3e6",fg:"#8a4400",bd:"#f5c28a"},"Ordered":{bg:"#e8f2fb",fg:"#1a4f82",bd:"#a8cdf0"},
+  "Shipped":{bg:"#f0ecf8",fg:"#4a2080",bd:"#c8adee"},"Delivered":{bg:"#eef4e8",fg:"#2d5a1b",bd:"#b2d79a"},
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let S = {
+  view: "dashboard",
+  activeProjectId: null,
+  projects: [], rooms: [], items: [], vendors: [],
+  projectContacts: [], intakeRecords: [], communications: [],
+  modal: null,
+  commTab: "all",
+  openGroup: "Bedrooms",
+  filters: { room:"all", cat:"all", client:"all", gc:"all", search:"" },
+  loading: false
+};
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+const fmt$ = v => "$" + Number(v||0).toLocaleString("en-US",{minimumFractionDigits:0,maximumFractionDigits:0});
+const esc = s => String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const pill = val => { const p=PILL_STYLES[val]||{bg:"#f5f5f5",fg:"#777",bd:"#ddd"}; return `<span class="pill" style="background:${p.bg};color:${p.fg};border-color:${p.bd}">${esc(val)}</span>`; };
+const toast = (msg, ok=true) => { const t=document.getElementById("toast"); t.textContent=msg; t.style.display="block"; t.style.borderLeftColor=ok?"var(--gold)":"#c0392b"; setTimeout(()=>t.style.display="none",3000); };
+const uid = () => Math.random().toString(36).slice(2,9);
+
+// ─── DATA LOADING ─────────────────────────────────────────────────────────────
+async function loadAll() {
+  try {
+    const [projects, vendors] = await Promise.all([
+      db.query("projects", {order:"created_at.desc"}),
+      db.query("vendors",  {order:"company.asc"})
+    ]);
+    S.projects = projects;
+    S.vendors  = vendors;
+    if (S.projects.length > 0 && !S.activeProjectId) {
+      S.activeProjectId = S.projects[0].id;
+    }
+    if (S.activeProjectId) await loadProject(S.activeProjectId);
+    render();
+  } catch(e) {
+    document.getElementById("app").innerHTML = `<div class="loading">Connection error — check your internet connection.<br><small>${e.message}</small></div>`;
+  }
+}
+
+async function loadProject(id) {
+  const [rooms, items, contacts, intake, comms] = await Promise.all([
+    db.query("rooms",            {filter:`project_id=eq.${id}`, order:"name.asc"}),
+    db.query("items",            {filter:`project_id=eq.${id}`, order:"created_at.asc"}),
+    db.query("project_contacts", {filter:`project_id=eq.${id}`, order:"contact_type.asc"}),
+    db.query("intake_records",   {filter:`project_id=eq.${id}`, order:"created_at.desc"}),
+    db.query("communications",   {filter:`project_id=eq.${id}`, order:"created_at.desc"}),
+  ]);
+  S.rooms = rooms;
+  S.items = items;
+  S.projectContacts = contacts;
+  S.intakeRecords = intake;
+  S.communications = comms;
+}
+
+// ─── EXPORT ───────────────────────────────────────────────────────────────────
+function doExport() {
+  const proj = S.projects.find(p => p.id === S.activeProjectId) || {};
+  const cc = S.projectContacts.filter(c => c.contact_type === "client");
+  const gc = S.projectContacts.filter(c => c.contact_type === "gc");
+  const fi = getFilteredItems();
+  const esc2 = v => `"${String(v??"").replace(/"/g,'""')}"`;
+  const headers = ["Project","Address","Room","Category","Item","Vendor","Model","Qty","Unit Cost","Total","Client Status","GC Status","Procurement","Lead Wks","Notes","Egnyte URL","Product Link","Client 1","Client 1 Phone","Client 1 Email","Client 2","Client 2 Phone","GC Company","GC 1","GC 1 Phone"];
+  const rows = fi.map(item => {
+    const room = S.rooms.find(r => r.id === item.room_id) || {};
+    return [proj.name||"",proj.address||"",room.name||"",item.category||"",item.name||"",item.vendor_name||"",item.model||"",item.qty||0,item.unit_cost||0,(item.qty||0)*(item.unit_cost||0),item.client_status||"",item.gc_status||"",item.proc_status||"",item.lead_weeks||"",item.notes||"",item.egnyte_url||"",item.product_link||"",cc[0]?.name||"",cc[0]?.phone||"",cc[0]?.email||"",cc[1]?.name||"",cc[1]?.phone||"",proj.gc_company||gc[0]?.company||"",gc[0]?.name||"",gc[0]?.phone||""].map(esc2);
+  });
+  const csv = "\uFEFF" + [headers.map(esc2).join(","), ...rows.map(r=>r.join(","))].join("\r\n");
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href=url; a.download="LuMaLa_FFE_Schedule.csv";
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},500);
+  toast("CSV exported to Downloads");
+}
+
+function getFilteredItems() {
+  const {filters} = S;
+  return S.items.filter(i => {
+    if (filters.room !== "all" && i.room_id !== filters.room) return false;
+    if (filters.cat !== "all" && i.category !== filters.cat) return false;
+    if (filters.client !== "all" && i.client_status !== filters.client) return false;
+    if (filters.gc !== "all" && i.gc_status !== filters.gc) return false;
+    if (filters.search) { const q=filters.search.toLowerCase(); if (!`${i.name} ${i.vendor_name} ${i.model} ${i.notes} ${i.category}`.toLowerCase().includes(q)) return false; }
+    return true;
+  });
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function render() {
+  const ap = S.projects.find(p => p.id === S.activeProjectId);
+  const cc = S.projectContacts.filter(c => c.contact_type === "client");
+  const gc = S.projectContacts.filter(c => c.contact_type === "gc");
+
+  let topTitle = "Overview";
+  if (S.view === "projects") topTitle = "All Projects";
+  if (S.view === "ffe") topTitle = ap?.name || "FF&E";
+  if (S.view === "vendors") topTitle = "Vendor Library";
+  if (S.view === "intake") topTitle = (ap?.name || "") + " — Site Intake";
+  if (S.view === "comms")  topTitle = (ap?.name || "") + " — Communications";
+
+  let topSub = "";
+  if ((S.view === "ffe" || S.view === "intake") && ap) {
+    const parts = [];
+    if (cc[0]) parts.push(`<span style="color:#6a6058">Client:</span> ${esc(cc[0].name)}${cc[0].phone?` · <a href="tel:${cc[0].phone}" class="contact-link">${cc[0].phone}</a>`:""}`);
+    if (gc[0]) parts.push(`<span style="color:#6a6058">GC:</span> ${esc(gc[0].name||"")}${gc[0].phone?` · <a href="tel:${gc[0].phone}" class="contact-link">${gc[0].phone}</a>`:""}`);
+    if (ap.matterport_url) parts.push(`<a href="${ap.matterport_url}" target="_blank" class="contact-link">🏠 Matterport</a>`);
+    topSub = `<div class="page-sub">${parts.join(" &ensp;·&ensp; ")}</div>`;
+  }
+
+  let actions = "";
+  if (S.view === "ffe") actions = `<button class="btn" id="btn-edit-proj">Edit Project</button><button class="btn" id="btn-comms">💬 Comms</button><button class="btn" id="btn-intake">📋 Intake</button><button class="btn btn-gold" id="btn-export">↓ Export</button><button class="btn btn-dark" id="btn-add-item">+ Add Item</button>`;
+  if (S.view === "projects") actions = `<button class="btn btn-dark" id="btn-new-proj2">+ New Project</button>`;
+  if (S.view === "vendors") actions = `<button class="btn btn-dark" id="btn-new-vendor">+ Add Vendor</button>`;
+  if (S.view === "intake") actions = `<button class="btn btn-dark" id="btn-add-intake">+ Add Note</button><button class="btn" id="btn-back-ffe">← Back to FF&E</button>`;
+  if (S.view === "comms")  actions = `<button class="btn btn-dark" id="btn-add-comm">+ Log Activity</button><button class="btn" id="btn-back-ffe">← FF&E</button>`;
+
+  document.getElementById("app").innerHTML = `
+  <div id="sidebar">
+    <div class="logo">
+      <div class="logo-title">LuMaLa</div>
+      <div class="logo-sub">Interior Design</div>
+      <div class="logo-rule"></div>
+    </div>
+    <div style="padding:12px 0 4px">
+      <div class="nav-item ${S.view==="dashboard"?"active":""}" data-nav="dashboard">Overview</div>
+      <div class="nav-item ${S.view==="projects"?"active":""}" data-nav="projects">Projects</div>
+      <div class="nav-item ${S.view==="vendors"?"active":""}" data-nav="vendors">Vendor Library</div>
+    </div>
+    <div class="nav-section">Active Projects</div>
+    ${S.projects.map(p => `
+      <div class="proj-item ${S.view==="ffe"&&S.activeProjectId===p.id?"active":""}" data-proj="${p.id}">
+        <div class="proj-name">${esc(p.name)}</div>
+        <div class="proj-meta">${S.items.filter(i=>i.project_id===p.id).length} items · ${esc(p.status||"")}</div>
+      </div>`).join("")}
+    <button class="new-proj-btn" id="btn-new-proj">+ New Project</button>
+    <div style="flex:1"></div>
+    <div style="padding:14px 20px;border-top:1px solid #1e1a16;font-size:10px;color:#3a3428">
+      FF&amp;E Platform<br><span style="color:var(--gold)">LuMaLa Interior Design</span>
+    </div>
+  </div>
+  <div id="main">
+    <div id="topbar">
+      <div>
+        <div class="page-title">${esc(topTitle)}</div>
+        ${topSub}
+      </div>
+      <div class="topbar-actions">${actions}</div>
+    </div>
+    <div id="content">${buildContent()}</div>
+  </div>
+  ${S.modal ? buildModal() : ""}`;
+
+  bindEvents();
+}
+
+function buildContent() {
+  if (S.view === "dashboard") return buildDashboard();
+  if (S.view === "projects")  return buildProjectsList();
+  if (S.view === "ffe")       return buildFFE();
+  if (S.view === "vendors")   return buildVendors();
+  if (S.view === "intake")    return buildIntake();
+  if (S.view === "comms")     return buildComms();
+  return "";
+}
+
+// ─── DASHBOARD ────────────────────────────────────────────────────────────────
+function buildDashboard() {
+  const totalVal = S.items.reduce((s,i) => s + (i.qty||0)*(i.unit_cost||0), 0);
+  const pending  = S.items.filter(i => i.client_status === "Pending").length;
+  let html = `<div class="stats-row">
+    <div class="stat-card"><div class="stat-val">${S.projects.length}</div><div class="stat-lbl">Active Projects</div></div>
+    <div class="stat-card"><div class="stat-val">${S.items.length}</div><div class="stat-lbl">Total Items</div></div>
+    <div class="stat-card"><div class="stat-val accent">${fmt$(totalVal)}</div><div class="stat-lbl">Portfolio Value</div></div>
+    <div class="stat-card"><div class="stat-val">${pending}</div><div class="stat-lbl">Pending Approval</div></div>
+    <div class="stat-card"><div class="stat-val">${S.vendors.length}</div><div class="stat-lbl">Vendors</div></div>
+  </div>`;
+  S.projects.forEach(p => {
+    const pi = S.items.filter(i => i.project_id === p.id);
+    const tot = pi.reduce((s,i) => s+(i.qty||0)*(i.unit_cost||0), 0);
+    const appr = pi.filter(i => i.client_status === "Approved").length;
+    const pct = pi.length ? Math.round(appr/pi.length*100) : 0;
+    html += `<div class="card" style="cursor:pointer" data-proj-go="${p.id}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+        <div><div class="card-title">${esc(p.name)}</div>
+          <div style="font-size:11.5px;color:var(--muted);margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            ${p.address?esc(p.address)+" &nbsp;":""}${pill(p.status||"Design Phase")}
+            ${p.matterport_url?`<a href="${esc(p.matterport_url)}" target="_blank" class="contact-link" style="font-size:11px" onclick="event.stopPropagation()">🏠 Matterport</a>`:""}
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:22px;font-weight:300;color:var(--gold);font-family:Georgia,serif">${fmt$(tot)}</div>
+          <div style="font-size:10.5px;color:var(--muted)">${pi.length} items</div>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10.5px;color:var(--muted)">
+        <span>${pct}% client-approved</span><span>${appr} of ${pi.length}</span>
+      </div>
+    </div>`;
+  });
+  return html;
+}
+
+// ─── PROJECTS LIST ────────────────────────────────────────────────────────────
+function buildProjectsList() {
+  if (!S.projects.length) return `<div class="loading">No projects yet — create your first project.</div>`;
+  return S.projects.map(p => {
+    const cc = S.projectContacts.filter(c => c.project_id === p.id && c.contact_type === "client");
+    const gc = S.projectContacts.filter(c => c.project_id === p.id && c.contact_type === "gc");
+    const cLines = cc.map(c => `<div style="font-size:11.5px;color:#4a4038;margin-bottom:2px"><span style="font-weight:500">${esc(c.name)}</span><span style="color:var(--muted)"> · ${esc(c.role||"")}</span>${c.phone?` · <a href="tel:${c.phone}" class="contact-link">${esc(c.phone)}</a>`:""}${c.email?` · <a href="mailto:${c.email}" class="contact-link">${esc(c.email)}</a>`:""}</div>`).join("");
+    const gcLines = gc.map(c => `<div style="font-size:11.5px;color:#4a4038;margin-bottom:2px"><span style="font-weight:500">${esc(c.name)}</span><span style="color:var(--muted)"> · ${esc(c.role||"")}</span>${c.phone?` · <a href="tel:${c.phone}" class="contact-link">${esc(c.phone)}</a>`:""}${c.email?` · <a href="mailto:${c.email}" class="contact-link">${esc(c.email)}</a>`:""}</div>`).join("");
+    const rooms = S.rooms.filter(r => r.project_id === p.id).map(r => `<span class="room-chip">${esc(r.name)}</span>`).join("");
+    return `<div class="card">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div style="flex:1;min-width:0">
+          <div class="card-title">${esc(p.name)} &nbsp;${pill(p.status||"Design Phase")}</div>
+          ${p.address?`<div style="font-size:11.5px;color:var(--muted);margin-top:3px">${esc(p.address)}</div>`:""}
+          ${p.matterport_url?`<div style="margin-top:4px"><a href="${esc(p.matterport_url)}" target="_blank" class="contact-link" style="font-size:11.5px">🏠 View Matterport Model</a></div>`:""}
+          ${cc.length?`<div style="margin-top:10px"><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Clients</div>${cLines}</div>`:""}
+          ${gc.length?`<div style="margin-top:8px"><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#7a6e5e;margin-bottom:4px">General Contractor</div>${gcLines}</div>`:""}
+          ${rooms?`<div style="margin-top:10px">${rooms}</div>`:""}
+        </div>
+        <div style="display:flex;gap:8px;flex-shrink:0;align-items:flex-start">
+          <button class="btn" data-edit-proj="${p.id}">Edit</button>
+          <button class="btn btn-dark" data-proj-go="${p.id}">View FF&amp;E →</button>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ─── FF&E TABLE ───────────────────────────────────────────────────────────────
+function buildFFE() {
+  const ap = S.projects.find(p => p.id === S.activeProjectId);
+  if (!ap) return `<div class="loading">Select a project from the sidebar.</div>`;
+  const pi = S.items.filter(i => i.project_id === S.activeProjectId);
+  const fi = getFilteredItems();
+  const tv = pi.reduce((s,i) => s+(i.qty||0)*(i.unit_cost||0), 0);
+  const av = pi.filter(i => i.client_status === "Approved").reduce((s,i) => s+(i.qty||0)*(i.unit_cost||0), 0);
+  const pc = pi.filter(i => i.client_status === "Pending").length;
+  const gs = pi.filter(i => ["Submitted","Acknowledged","Scheduled","Installed"].includes(i.gc_status)).length;
+
+  const map = {};
+  fi.forEach(item => {
+    const r = S.rooms.find(r => r.id === item.room_id);
+    const k = r?.id || "__x__"; const n = r?.name || "Unassigned";
+    if (!map[k]) map[k] = {name:n, items:[]};
+    map[k].items.push(item);
+  });
+  const groups = Object.values(map);
+
+  const roomOpts = S.rooms.filter(r=>r.project_id===S.activeProjectId).map(r=>`<option value="${r.id}"${S.filters.room===r.id?"selected":""}>${esc(r.name)}</option>`).join("");
+  const catOpts  = CATEGORIES.map(c=>`<option${S.filters.cat===c?"selected":""}>${c}</option>`).join("");
+  const csOpts   = CLIENT_STATUSES.map(s=>`<option${S.filters.client===s?"selected":""}>${s}</option>`).join("");
+  const gcOpts   = GC_STATUSES.map(s=>`<option${S.filters.gc===s?"selected":""}>${s}</option>`).join("");
+  const fTotal   = fi.reduce((s,i) => s+(i.qty||0)*(i.unit_cost||0), 0);
+
+  let html = `
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-val accent">${fmt$(tv)}</div><div class="stat-lbl">Total Budget</div></div>
+    <div class="stat-card"><div class="stat-val">${fmt$(av)}</div><div class="stat-lbl">Client Approved</div></div>
+    <div class="stat-card"><div class="stat-val">${pc}</div><div class="stat-lbl">Pending Approval</div></div>
+    <div class="stat-card"><div class="stat-val">${gs}</div><div class="stat-lbl">Submitted to GC</div></div>
+    <div class="stat-card"><div class="stat-val">${pi.length}</div><div class="stat-lbl">Total Items</div></div>
+  </div>
+  <div class="filter-bar">
+    <input id="f-search" style="width:160px" placeholder="Search…" value="${esc(S.filters.search)}"/>
+    <select id="f-room"><option value="all">All Rooms</option>${roomOpts}</select>
+    <select id="f-cat"><option value="all">All Categories</option>${catOpts}</select>
+    <select id="f-client"><option value="all">All Client Statuses</option>${csOpts}</select>
+    <select id="f-gc"><option value="all">All GC Statuses</option>${gcOpts}</select>
+    <span style="margin-left:auto;font-size:11.5px;color:var(--muted)">${fi.length} items · ${fmt$(fTotal)}</span>
+  </div>`;
+
+  if (!groups.length) html += `<div class="loading">No items yet — add your first FF&E item.</div>`;
+
+  groups.forEach(group => {
+    const gTotal = group.items.reduce((s,i) => s+(i.qty||0)*(i.unit_cost||0), 0);
+    html += `<div class="room-header"><div class="room-label">${esc(group.name)}</div><div class="room-rule"></div><div style="font-size:10.5px;color:var(--muted);white-space:nowrap">${group.items.length} items · ${fmt$(gTotal)}</div></div>
+    <div class="tbl-wrap"><table>
+    <thead><tr><th>Category</th><th>Item / Vendor</th><th>Model</th><th>Qty</th><th>Unit</th><th>Total</th><th>Client</th><th>GC</th><th>Procurement</th><th>Lead</th><th>Files</th><th></th></tr></thead><tbody>`;
+    group.items.forEach(item => {
+      const eLink = item.egnyte_url ? `<a href="${esc(item.egnyte_url)}" target="_blank" style="font-size:11px;color:var(--gold)">📁 Open</a>` : `<span style="color:#d0c8bc;font-size:11px">—</span>`;
+      const pLink = item.product_link ? `<br><a href="${esc(item.product_link)}" target="_blank" style="font-size:10.5px;color:var(--muted)">↗ product</a>` : "";
+      html += `<tr>
+        <td style="font-size:11px;color:var(--muted);white-space:nowrap">${esc(item.category||"")}</td>
+        <td><div style="font-weight:500;color:var(--dark)">${esc(item.name)}</div><div style="font-size:11px;color:var(--muted)">${esc(item.vendor_name||"")}</div>${item.notes?`<div style="font-size:10.5px;color:#b8a898;font-style:italic">${esc(item.notes)}</div>`:""}</td>
+        <td style="font-size:12px;color:#6a6058">${esc(item.model||"")}</td>
+        <td style="text-align:center">${item.qty||0}</td>
+        <td style="text-align:right">${fmt$(item.unit_cost)}</td>
+        <td style="text-align:right;font-weight:500;color:var(--dark)">${fmt$((item.qty||0)*(item.unit_cost||0))}</td>
+        <td>${pill(item.client_status||"Pending")}</td>
+        <td>${pill(item.gc_status||"Not Submitted")}</td>
+        <td>${pill(item.proc_status||"Specifying")}</td>
+        <td style="text-align:center;font-size:12px;color:var(--muted)">${item.lead_weeks?item.lead_weeks+"w":"—"}</td>
+        <td style="white-space:nowrap">${eLink}${pLink}</td>
+        <td><div style="display:flex;gap:4px"><button class="btn-sm" data-edit-item="${item.id}">Edit</button><button class="btn-del" data-del-item="${item.id}">✕</button></div></td>
+      </tr>`;
+    });
+    html += `</tbody><tfoot><tr><td colspan="5">Room Total</td><td style="text-align:right;font-weight:600;color:#d4c4a0;font-size:13px">${fmt$(gTotal)}</td><td colspan="6"></td></tr></tfoot></table></div>`;
+  });
+
+  if (fi.length > 0) html += `<div class="grand-total"><div class="gt-label">Project Total (${fi.length} items)</div><div class="gt-val">${fmt$(fTotal)}</div></div>`;
+  return html;
+}
+
+// ─── VENDORS ──────────────────────────────────────────────────────────────────
+function buildVendors() {
+  if (!S.vendors.length) return `<div class="loading">No vendors yet — build your library by adding your first vendor.</div>`;
+  return `<div class="vendor-grid">${S.vendors.map(v => `
+    <div class="vendor-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><div class="vendor-name">${esc(v.company)}</div><div class="vendor-cat">${esc(v.category||"")}</div></div>
+        <div style="display:flex;gap:4px"><button class="btn-sm" data-edit-vendor="${v.id}">Edit</button><button class="btn-del" data-del-vendor="${v.id}">✕</button></div>
+      </div>
+      <div class="vendor-detail">
+        ${v.rep_name?`<div><span style="color:var(--muted)">Rep:</span> ${esc(v.rep_name)}</div>`:""}
+        ${v.rep_phone?`<div><a href="tel:${v.rep_phone}" class="contact-link">${esc(v.rep_phone)}</a></div>`:""}
+        ${v.rep_email?`<div><a href="mailto:${v.rep_email}" class="contact-link">${esc(v.rep_email)}</a></div>`:""}
+        ${v.trade_account?`<div><span style="color:var(--muted)">Account #:</span> ${esc(v.trade_account)}</div>`:""}
+        ${v.avg_lead_weeks?`<div><span style="color:var(--muted)">Avg lead:</span> ${v.avg_lead_weeks} wks</div>`:""}
+        ${v.website?`<div><a href="${esc(v.website)}" target="_blank" class="contact-link" style="font-size:11px">↗ Website</a></div>`:""}
+        ${v.notes?`<div style="margin-top:4px;font-size:11px;color:var(--muted);font-style:italic">${esc(v.notes)}</div>`:""}
+      </div>
+    </div>`).join("")}</div>`;
+}
+
+// ─── INTAKE ───────────────────────────────────────────────────────────────────
+function buildIntake() {
+  const ap = S.projects.find(p => p.id === S.activeProjectId);
+  if (!ap) return "";
+  const typeColors = {"note":"#1a4f82","voice":"#2d6a4f","photo":"#8a4400","video":"#4a2080"};
+  let html = "";
+  if (!S.intakeRecords.length) html = `<div class="loading">No intake records yet — add your first site note.</div>`;
+  S.intakeRecords.forEach(r => {
+    const col = typeColors[r.type] || "#888";
+    html += `<div class="intake-card">
+      <div class="intake-type" style="color:${col}">${(r.type||"note").toUpperCase()}</div>
+      <div class="intake-content">${esc(r.content||r.transcription||"")}</div>
+      ${r.egnyte_url?`<div style="margin-top:6px"><a href="${esc(r.egnyte_url)}" target="_blank" class="contact-link" style="font-size:11.5px">📁 Open file in Egnyte</a></div>`:""}
+      <div class="intake-meta">${new Date(r.created_at).toLocaleString()}${S.rooms.find(x=>x.id===r.room_id)?` · ${esc(S.rooms.find(x=>x.id===r.room_id).name)}`:""}</div>
+      <button class="btn-del" style="margin-top:6px" data-del-intake="${r.id}">Delete</button>
+    </div>`;
+  });
+  return html;
+}
+
+// ─── MODAL ────────────────────────────────────────────────────────────────────
+function buildModal() {
+  const m = S.modal;
+  let title = "", body = "";
+  if (m.type === "newProject" || m.type === "editProject") { title = m.type === "newProject" ? "New Project" : "Edit Project"; body = buildProjectForm(m.data); }
+  else if (m.type === "newItem" || m.type === "editItem")   { title = m.type === "newItem" ? "Add FF&E Item" : "Edit FF&E Item"; body = buildItemForm(m.data); }
+  else if (m.type === "newVendor" || m.type === "editVendor") { title = m.type === "newVendor" ? "Add Vendor" : "Edit Vendor"; body = buildVendorForm(m.data); }
+  else if (m.type === "newIntake") { title = "Add Site Note"; body = buildIntakeForm(); }
+  else if (m.type === "newComm")   { title = "Log Activity";  body = buildCommForm(); }
+  return `<div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-hd">
+        <div><div class="modal-title">${title}</div>${m.data?.name?`<div class="modal-sub">${esc(m.data.name)}</div>`:""}</div>
+        <button class="modal-close" id="modal-close">×</button>
+      </div>
+      <div class="modal-body">${body}</div>
+    </div>
+  </div>`;
+}
+
+// ─── PROJECT FORM ─────────────────────────────────────────────────────────────
+function buildProjectForm(d) {
+  d = d || {name:"",status:"Design Phase",address:"",matterport_url:"",egnyte_folder_url:"",notes:"",clientContacts:[{id:uid(),role:"Primary Contact",name:"",email:"",phone:"",notes:""}],gcContacts:[{id:uid(),role:"Project Manager",name:"",company:"",email:"",phone:"",notes:""}],rooms:[]};
+  const statusOpts = PROJECT_STATUSES.map(s=>`<option${d.status===s?" selected":""}>${s}</option>`).join("");
+  const grpTabs = ROOM_PRESETS.map(g=>`<button type="button" class="group-tab${S.openGroup===g.g?" active":""}" data-grp="${g.g}">${g.g}</button>`).join("");
+  const chips = (ROOM_PRESETS.find(g=>g.g===S.openGroup)?.r||[]).map(r=>{const sel=(d.rooms||[]).some(x=>x.name===r);return`<span class="chip${sel?" on":""}" data-chip="${esc(r)}">${sel?"✓ ":""}${esc(r)}</span>`;}).join("");
+  const selRooms = (d.rooms||[]).length ? `<div class="selected-rooms"><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Selected (${d.rooms.length})</div><div>${d.rooms.map(r=>`<span class="room-tag">${esc(r.name)}<span style="cursor:pointer;color:#b09080;font-size:13px;line-height:1" data-rm-room="${r.id}">×</span></span>`).join("")}</div></div>` : "";
+  const ccRows = (d.clientContacts||[]).map((c,i)=>buildCRow(c,CONTACT_ROLES,"cc",d.clientContacts.length===1)).join("");
+  const gcRows = (d.gcContacts||[]).map((c,i)=>buildCRow(c,GC_ROLES,"gc",d.gcContacts.length===1)).join("");
+  return `
+  <input type="hidden" id="pf-id" value="${d.id||""}"/>
+  <div class="form-grid">
+    <div class="field"><label>Project Name</label><input id="pf-name" value="${esc(d.name||"")}"/></div>
+    <div class="field"><label>Status</label><select id="pf-status">${statusOpts}</select></div>
+    <div class="field full"><label>Property Address</label><input id="pf-address" value="${esc(d.address||"")}" placeholder="123 Main St, City, State ZIP"/></div>
+    <div class="field full"><label>Matterport 3D Model URL</label><input id="pf-matterport" value="${esc(d.matterport_url||"")}" placeholder="https://my.matterport.com/show/?m=..."/></div>
+    <div class="field full"><label>Egnyte Project Folder URL</label><input id="pf-egnyte-folder" value="${esc(d.egnyte_folder_url||"")}" placeholder="https://lumala.egnyte.com/navigate/folder/..."/></div>
+    <div class="field full"><label>Notes</label><textarea id="pf-notes">${esc(d.notes||"")}</textarea></div>
+  </div>
+  <div class="section-head"><div class="section-label">Client Contacts</div><div class="section-rule"></div><button type="button" class="btn" id="btn-add-cc" style="padding:3px 10px;font-size:11px;border-color:#d4a843;color:#7a5a10">+ Add</button></div>
+  <div id="cc-rows">${ccRows}</div>
+  <div class="section-head"><div class="section-label">General Contractor</div><div class="section-rule"></div><button type="button" class="btn" id="btn-add-gc" style="padding:3px 10px;font-size:11px;border-color:#d4a843;color:#7a5a10">+ Add</button></div>
+  <div id="gc-rows">${gcRows}</div>
+  <div class="section-head"><div class="section-label">Rooms</div><div class="section-rule"></div><span style="font-size:10px;color:var(--muted)">click to add · click again to remove</span></div>
+  <div class="group-tabs">${grpTabs}</div>
+  <div id="chip-area" style="margin-bottom:8px">${chips}</div>
+  <div style="display:flex;gap:8px">
+    <input id="custom-room" style="flex:1;padding:7px 10px;border:1px solid #ddd7cc;background:var(--cream)" placeholder="Custom room…"/>
+    <button type="button" class="btn btn-dark" id="btn-add-room" style="padding:7px 14px">Add</button>
+  </div>
+  <div id="selected-rooms">${selRooms}</div>
+  <div class="form-footer">
+    <button type="button" class="btn" id="pf-cancel">Cancel</button>
+    <button type="button" class="btn btn-dark" id="pf-save">Save Project</button>
+  </div>`;
+}
+
+function buildCRow(c, roles, prefix, isOnly) {
+  const opts = roles.map(r=>`<option${c.role===r?" selected":""}>${r}</option>`).join("");
+  return `<div class="contact-row-box" id="${prefix}-row-${c.id}">
+    <div class="contact-grid">
+      <div><label class="clabel">Name</label><input class="cinput ${prefix}-name" data-cid="${c.id}" value="${esc(c.name||"")}"/></div>
+      <div><label class="clabel">Role</label><select class="cinput ${prefix}-role" data-cid="${c.id}">${opts}</select></div>
+      <div><label class="clabel">Email</label><input class="cinput ${prefix}-email" data-cid="${c.id}" type="email" value="${esc(c.email||"")}"/></div>
+      <div><label class="clabel">Phone</label><input class="cinput ${prefix}-phone" data-cid="${c.id}" value="${esc(c.phone||"")}"/></div>
+      <div style="grid-column:span 2;display:flex;align-items:flex-end;gap:8px">
+        <div style="flex:1"><label class="clabel">Notes</label><input class="cinput ${prefix}-notes" data-cid="${c.id}" value="${esc(c.notes||"")}"/></div>
+        ${isOnly?"":`<button type="button" class="btn-del" data-rm-contact="${c.id}" data-prefix="${prefix}" style="padding:7px 10px">Remove</button>`}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── ITEM FORM ────────────────────────────────────────────────────────────────
+function buildItemForm(d) {
+  d = d || {project_id:S.activeProjectId,room_id:"",category:"Furniture",name:"",vendor_name:"",model:"",qty:1,unit_cost:0,client_status:"Pending",gc_status:"Not Submitted",proc_status:"Specifying",lead_weeks:"",notes:"",egnyte_url:"",product_link:""};
+  const isCatOther = d.category?.startsWith("Other: ");
+  const catVal = isCatOther ? "Other" : (d.category||"Furniture");
+  const catOtherVal = isCatOther ? d.category.slice(7) : "";
+  const roomOpts = S.rooms.filter(r=>r.project_id===S.activeProjectId).map(r=>`<option value="${r.id}"${d.room_id===r.id?"selected":""}>${esc(r.name)}</option>`).join("");
+  const catOpts = CATEGORIES.map(c=>`<option${catVal===c?" selected":""}>${c}</option>`).join("");
+  const csOpts = CLIENT_STATUSES.map(s=>`<option${d.client_status===s?" selected":""}>${s}</option>`).join("");
+  const gcOpts = GC_STATUSES.map(s=>`<option${d.gc_status===s?" selected":""}>${s}</option>`).join("");
+  const psOpts = PROC_STATUSES.map(s=>`<option${d.proc_status===s?" selected":""}>${s}</option>`).join("");
+  const vendorOpts = S.vendors.map(v=>`<option value="${esc(v.company)}"${d.vendor_name===v.company?" selected":""}>${esc(v.company)}</option>`).join("");
+  const ev = d.egnyte_url?.startsWith("http");
+  return `
+  <input type="hidden" id="if-id" value="${d.id||""}"/>
+  <div class="form-grid">
+    <div class="field"><label>Room</label><select id="if-room"><option value="">— Select Room —</option>${roomOpts}</select></div>
+    <div class="field"><label>Category</label>
+      <select id="if-cat">${catOpts}</select>
+      <div id="cat-other-wrap" style="display:${catVal==="Other"?"block":"none"}"><input class="other-input" id="if-cat-other" value="${esc(catOtherVal)}" placeholder="Describe…"/></div>
+    </div>
+    <div class="field full"><label>Item Name</label><input id="if-name" value="${esc(d.name||"")}" placeholder="e.g. King Platform Bed"/></div>
+    <div class="field"><label>Vendor</label>
+      <input id="if-vendor" list="vendor-list" value="${esc(d.vendor_name||"")}" placeholder="Type or select from library"/>
+      <datalist id="vendor-list">${vendorOpts}</datalist>
+    </div>
+    <div class="field"><label>Model / SKU</label><input id="if-model" value="${esc(d.model||"")}"/></div>
+    <div class="field"><label>Qty</label><input id="if-qty" type="number" min="1" value="${d.qty||1}"/></div>
+    <div class="field"><label>Unit Cost ($)</label><input id="if-cost" type="number" min="0" value="${d.unit_cost||0}"/></div>
+    <div class="field"><label>Client Status</label><select id="if-cs">${csOpts}</select></div>
+    <div class="field"><label>GC Status</label><select id="if-gcs">${gcOpts}</select></div>
+    <div class="field"><label>Procurement Status</label><select id="if-ps">${psOpts}</select></div>
+    <div class="field"><label>Lead Time (weeks)</label><input id="if-lead" type="number" min="0" value="${d.lead_weeks||""}"/></div>
+    <div class="field full"><label>Product / Vendor Link</label><input id="if-link" value="${esc(d.product_link||"")}" placeholder="https://"/></div>
+    <div class="field full"><label>Egnyte File Link</label>
+      <input id="if-egnyte" style="${ev?"border-color:#d4a843;background:#fdf8ee":""}" value="${esc(d.egnyte_url||"")}" placeholder="Paste Egnyte share link…"/>
+      <div id="egnyte-ok" class="egnyte-ok" style="display:${ev?"block":"none"}">✓ Valid &nbsp;<a href="${esc(d.egnyte_url||"")}" target="_blank" style="color:var(--gold)">↗ Test</a></div>
+    </div>
+    <div class="field full"><label>Notes</label><textarea id="if-notes">${esc(d.notes||"")}</textarea></div>
+  </div>
+  <div class="form-footer">
+    <button type="button" class="btn" id="if-cancel">Cancel</button>
+    <button type="button" class="btn btn-dark" id="if-save">Save Item</button>
+  </div>`;
+}
+
+// ─── VENDOR FORM ──────────────────────────────────────────────────────────────
+function buildVendorForm(d) {
+  d = d || {company:"",category:"",rep_name:"",rep_email:"",rep_phone:"",trade_account:"",website:"",avg_lead_weeks:"",notes:""};
+  const catOpts = VENDOR_CATS.map(c=>`<option${d.category===c?" selected":""}>${c}</option>`).join("");
+  return `
+  <input type="hidden" id="vf-id" value="${d.id||""}"/>
+  <div class="form-grid">
+    <div class="field full"><label>Company Name</label><input id="vf-company" value="${esc(d.company||"")}"/></div>
+    <div class="field"><label>Category</label><select id="vf-cat"><option value="">— Select —</option>${catOpts}</select></div>
+    <div class="field"><label>Trade Account #</label><input id="vf-account" value="${esc(d.trade_account||"")}"/></div>
+    <div class="field"><label>Rep Name</label><input id="vf-rep" value="${esc(d.rep_name||"")}"/></div>
+    <div class="field"><label>Rep Email</label><input id="vf-email" type="email" value="${esc(d.rep_email||"")}"/></div>
+    <div class="field"><label>Rep Phone</label><input id="vf-phone" value="${esc(d.rep_phone||"")}"/></div>
+    <div class="field"><label>Website</label><input id="vf-website" value="${esc(d.website||"")}"/></div>
+    <div class="field"><label>Avg Lead Time (weeks)</label><input id="vf-lead" type="number" min="0" value="${d.avg_lead_weeks||""}"/></div>
+    <div class="field full"><label>Notes</label><textarea id="vf-notes">${esc(d.notes||"")}</textarea></div>
+  </div>
+  <div class="form-footer">
+    <button type="button" class="btn" id="vf-cancel">Cancel</button>
+    <button type="button" class="btn btn-dark" id="vf-save">Save Vendor</button>
+  </div>`;
+}
+
+// ─── INTAKE FORM ──────────────────────────────────────────────────────────────
+function buildIntakeForm() {
+  const roomOpts = S.rooms.filter(r=>r.project_id===S.activeProjectId).map(r=>`<option value="${r.id}">${esc(r.name)}</option>`).join("");
+  return `
+  <div class="form-grid">
+    <div class="field"><label>Type</label>
+      <select id="int-type">
+        <option value="note">Note</option>
+        <option value="voice">Voice Memo / Transcription</option>
+        <option value="photo">Photo Link</option>
+        <option value="video">Video Link</option>
+      </select>
+    </div>
+    <div class="field"><label>Room (optional)</label><select id="int-room"><option value="">— All Rooms —</option>${roomOpts}</select></div>
+    <div class="field full">
+      <label>Content / Notes</label>
+      <textarea id="int-content" style="height:100px" placeholder="Type notes, paste transcription, or describe what you observed…"></textarea>
+      <button type="button" id="btn-voice" style="margin-top:6px;padding:6px 14px;background:#f0ece4;border:1px solid #d0c8bc;font-size:12px;cursor:pointer">🎤 Start Voice Dictation</button>
+    </div>
+    <div class="field full"><label>Egnyte File Link (photo / video / document)</label>
+      <input id="int-egnyte" placeholder="Paste Egnyte share link…"/>
+    </div>
+  </div>
+  <div class="form-footer">
+    <button type="button" class="btn" id="int-cancel">Cancel</button>
+    <button type="button" class="btn btn-dark" id="int-save">Save Note</button>
+  </div>`;
+}
+
+// ─── EVENT BINDING ────────────────────────────────────────────────────────────
+function bindEvents() {
+  // Navigation
+  document.querySelectorAll("[data-nav]").forEach(el => el.addEventListener("click", () => { S.view = el.dataset.nav; render(); }));
+  document.querySelectorAll("[data-proj]").forEach(el => el.addEventListener("click", async () => {
+    S.activeProjectId = el.dataset.proj; S.view = "ffe"; S.filters = {room:"all",cat:"all",client:"all",gc:"all",search:""};
+    await loadProject(S.activeProjectId); render();
+  }));
+  document.querySelectorAll("[data-proj-go]").forEach(el => el.addEventListener("click", async () => {
+    S.activeProjectId = el.dataset.projGo; S.view = "ffe"; S.filters = {room:"all",cat:"all",client:"all",gc:"all",search:""};
+    await loadProject(S.activeProjectId); render();
+  }));
+
+  // Topbar buttons
+  const bind = (id, fn) => { const el = document.getElementById(id); if (el) el.addEventListener("click", fn); };
+  bind("btn-new-proj",  () => { S.modal = {type:"newProject",data:null}; render(); });
+  bind("btn-new-proj2", () => { S.modal = {type:"newProject",data:null}; render(); });
+  bind("btn-edit-proj", () => { const p = S.projects.find(x=>x.id===S.activeProjectId); S.modal={type:"editProject",data:buildProjectData(p)}; render(); });
+  bind("btn-export",    doExport);
+  bind("btn-add-item",  () => { S.modal = {type:"newItem",data:null}; render(); });
+  bind("btn-new-vendor",() => { S.modal = {type:"newVendor",data:null}; render(); });
+  bind("btn-intake",    () => { S.view = "intake"; render(); });
+  bind("btn-comms",     () => { S.view = "comms";  render(); });
+  bind("btn-add-comm",  () => { S.modal = {type:"newComm",data:null}; render(); });
+  bind("btn-back-ffe",  () => { S.view = "ffe"; render(); });
+  bind("btn-add-intake",() => { S.modal = {type:"newIntake",data:null}; render(); });
+
+  // Filters
+  const fs = document.getElementById("f-search"); if (fs) fs.addEventListener("input", e => { S.filters.search = e.target.value; document.getElementById("content").innerHTML = buildContent(); bindContentEvents(); });
+  ["room","cat","client","gc"].forEach(k => { const el = document.getElementById("f-"+k); if (el) el.addEventListener("change", e => { S.filters[k] = e.target.value; document.getElementById("content").innerHTML = buildContent(); bindContentEvents(); }); });
+
+  // Item/vendor actions
+  bindContentEvents();
+
+  // Modal
+  bind("modal-close", () => { S.modal = null; render(); });
+  const mo = document.getElementById("modal-overlay"); if (mo) mo.addEventListener("click", e => { if (e.target === mo) { S.modal = null; render(); } });
+
+  // Forms
+  bindProjectForm();
+  bindItemForm();
+  bindVendorForm();
+  bindIntakeForm();
+  bindCommForm();
+}
+
+function bindContentEvents() {
+  document.querySelectorAll("[data-edit-proj]").forEach(el => el.addEventListener("click", e => { e.stopPropagation(); const p = S.projects.find(x=>x.id===el.dataset.editProj); S.modal={type:"editProject",data:buildProjectData(p)}; render(); }));
+  document.querySelectorAll("[data-edit-item]").forEach(el => el.addEventListener("click", () => { const item = S.items.find(i=>i.id===el.dataset.editItem); S.modal={type:"editItem",data:{...item}}; render(); }));
+  document.querySelectorAll("[data-del-item]").forEach(el => el.addEventListener("click", async () => { if (!confirm("Remove this item?")) return; await db.delete("items", el.dataset.delItem); S.items = S.items.filter(i=>i.id!==el.dataset.delItem); document.getElementById("content").innerHTML = buildContent(); bindContentEvents(); toast("Item removed"); }));
+  document.querySelectorAll("[data-edit-vendor]").forEach(el => el.addEventListener("click", () => { const v = S.vendors.find(x=>x.id===el.dataset.editVendor); S.modal={type:"editVendor",data:{...v}}; render(); }));
+  document.querySelectorAll("[data-del-vendor]").forEach(el => el.addEventListener("click", async () => { if (!confirm("Remove vendor?")) return; await db.delete("vendors", el.dataset.delVendor); S.vendors = S.vendors.filter(v=>v.id!==el.dataset.delVendor); document.getElementById("content").innerHTML = buildContent(); bindContentEvents(); toast("Vendor removed"); }));
+  document.querySelectorAll("[data-del-intake]").forEach(el => el.addEventListener("click", async () => { if (!confirm("Delete this note?")) return; await db.delete("intake_records", el.dataset.delIntake); S.intakeRecords = S.intakeRecords.filter(r=>r.id!==el.dataset.delIntake); document.getElementById("content").innerHTML = buildContent(); bindContentEvents(); toast("Note deleted"); }));
+  document.querySelectorAll("[data-del-comm]").forEach(el => el.addEventListener("click", async () => { if (!confirm("Delete this entry?")) return; await db.delete("communications", el.dataset.delComm); S.communications = S.communications.filter(c=>c.id!==el.dataset.delComm); document.getElementById("content").innerHTML = buildContent(); bindContentEvents(); toast("Entry deleted"); }));
+  document.querySelectorAll("[data-comm-tab]").forEach(el => el.addEventListener("click", () => { S.commTab=el.dataset.commTab; document.getElementById("content").innerHTML=buildContent(); bindContentEvents(); }));
+  const bco = document.getElementById("btn-comms"); if (bco) bco.addEventListener("click", () => { S.view="comms"; render(); });
+  const bac = document.getElementById("btn-add-comm"); if (bac) bac.addEventListener("click", () => { S.modal={type:"newComm",data:null}; render(); });
+  document.getElementById("btn-back-ffe")?.addEventListener("click", () => { S.view="ffe"; render(); });
+  document.querySelectorAll("[data-proj-go]").forEach(el => el.addEventListener("click", async () => { S.activeProjectId=el.dataset.projGo; S.view="ffe"; S.filters={room:"all",cat:"all",client:"all",gc:"all",search:""}; await loadProject(S.activeProjectId); render(); }));
+  const bex = document.getElementById("btn-export"); if (bex) bex.addEventListener("click", doExport);
+  const bai = document.getElementById("btn-add-item"); if (bai) bai.addEventListener("click", () => { S.modal={type:"newItem",data:null}; render(); });
+  const bep = document.getElementById("btn-edit-proj"); if (bep) bep.addEventListener("click", () => { const p=S.projects.find(x=>x.id===S.activeProjectId); S.modal={type:"editProject",data:buildProjectData(p)}; render(); });
+  const bv  = document.getElementById("btn-new-vendor"); if (bv) bv.addEventListener("click", () => { S.modal={type:"newVendor",data:null}; render(); });
+  const bi  = document.getElementById("btn-intake"); if (bi) bi.addEventListener("click", () => { S.view="intake"; render(); });
+  const bai2= document.getElementById("btn-add-intake"); if (bai2) bai2.addEventListener("click", () => { S.modal={type:"newIntake",data:null}; render(); });
+  const bbf = document.getElementById("btn-back-ffe"); if (bbf) bbf.addEventListener("click", () => { S.view="ffe"; render(); });
+  const fs  = document.getElementById("f-search"); if (fs) fs.addEventListener("input", e => { S.filters.search=e.target.value; document.getElementById("content").innerHTML=buildContent(); bindContentEvents(); });
+  ["room","cat","client","gc"].forEach(k => { const el=document.getElementById("f-"+k); if(el) el.addEventListener("change", e => { S.filters[k]=e.target.value; document.getElementById("content").innerHTML=buildContent(); bindContentEvents(); }); });
+}
+
+function buildProjectData(p) {
+  if (!p) return null;
+  const cc = S.projectContacts.filter(c=>c.project_id===p.id&&c.contact_type==="client").map(c=>({id:c.id,role:c.role||"",name:c.name||"",email:c.email||"",phone:c.phone||"",notes:c.notes||""}));
+  const gc = S.projectContacts.filter(c=>c.project_id===p.id&&c.contact_type==="gc").map(c=>({id:c.id,role:c.role||"",name:c.name||"",email:c.email||"",phone:c.phone||"",notes:c.notes||""}));
+  const rooms = S.rooms.filter(r=>r.project_id===p.id).map(r=>({id:r.id,name:r.name}));
+  return {...p, clientContacts:cc.length?cc:[{id:uid(),role:"Primary Contact",name:"",email:"",phone:"",notes:""}], gcContacts:gc.length?gc:[{id:uid(),role:"Project Manager",name:"",email:"",phone:"",notes:""}], rooms};
+}
+
+function bindProjectForm() {
+  const d = S.modal?.data;
+  if (!d && S.modal?.type !== "newProject" && S.modal?.type !== "editProject") return;
+  const formData = d || {id:"",name:"",status:"Design Phase",address:"",matterport_url:"",egnyte_folder_url:"",notes:"",clientContacts:[{id:uid(),role:"Primary Contact",name:"",email:"",phone:"",notes:""}],gcContacts:[{id:uid(),role:"Project Manager",name:"",email:"",phone:"",notes:""}],rooms:[]};
+
+  function readContacts(prefix) {
+    const out = [];
+    document.querySelectorAll(`.${prefix}-name`).forEach(el => {
+      const cid = el.dataset.cid;
+      out.push({id:cid,name:el.value,role:document.querySelector(`.${prefix}-role[data-cid="${cid}"]`)?.value||"",email:document.querySelector(`.${prefix}-email[data-cid="${cid}"]`)?.value||"",phone:document.querySelector(`.${prefix}-phone[data-cid="${cid}"]`)?.value||"",notes:document.querySelector(`.${prefix}-notes[data-cid="${cid}"]`)?.value||""});
+    });
+    return out;
+  }
+
+  function getCurrentForm() {
+    return {id:document.getElementById("pf-id")?.value||"",name:document.getElementById("pf-name")?.value||"",status:document.getElementById("pf-status")?.value||"Design Phase",address:document.getElementById("pf-address")?.value||"",matterport_url:document.getElementById("pf-matterport")?.value||"",egnyte_folder_url:document.getElementById("pf-egnyte")?.value||"",notes:document.getElementById("pf-notes")?.value||"",clientContacts:readContacts("cc"),gcContacts:readContacts("gc"),rooms:formData.rooms};
+  }
+
+  document.getElementById("pf-save")?.addEventListener("click", async () => {
+    const f = getCurrentForm();
+    if (!f.name.trim()) { alert("Project name required"); return; }
+    try {
+      let projId = f.id;
+      const projData = {name:f.name,status:f.status,address:f.address,matterport_url:f.matterport_url,egnyte_folder_url:f.egnyte_folder_url,notes:f.notes};
+      if (!projId) {
+        const [newProj] = await db.insert("projects", projData);
+        projId = newProj.id;
+        S.projects.unshift(newProj);
+      } else {
+        await db.update("projects", projId, projData);
+        S.projects = S.projects.map(p=>p.id===projId?{...p,...projData}:p);
+      }
+      // Save contacts
+      const existingCC = S.projectContacts.filter(c=>c.project_id===projId&&c.contact_type==="client").map(c=>c.id);
+      const existingGC = S.projectContacts.filter(c=>c.project_id===projId&&c.contact_type==="gc").map(c=>c.id);
+      for (const id of existingCC) await db.delete("project_contacts", id);
+      for (const id of existingGC) await db.delete("project_contacts", id);
+      const newContacts = [];
+      for (const c of f.clientContacts) if (c.name.trim()) newContacts.push({project_id:projId,contact_type:"client",name:c.name,role:c.role,email:c.email,phone:c.phone,notes:c.notes});
+      for (const c of f.gcContacts)     if (c.name.trim()) newContacts.push({project_id:projId,contact_type:"gc",name:c.name,role:c.role,email:c.email,phone:c.phone,notes:c.notes});
+      if (newContacts.length) { const saved = await db.insert("project_contacts", newContacts); S.projectContacts = [...S.projectContacts.filter(c=>c.project_id!==projId), ...saved]; }
+      else S.projectContacts = S.projectContacts.filter(c=>c.project_id!==projId);
+      // Save rooms
+      const existingRooms = S.rooms.filter(r=>r.project_id===projId).map(r=>r.id);
+      const keptRooms = f.rooms.filter(r=>r.id&&!r.id.startsWith("new_"));
+      const newRoomNames = f.rooms.filter(r=>!r.id||r.id.startsWith("new_")).map(r=>r.name);
+      const removedRooms = existingRooms.filter(id=>!keptRooms.find(r=>r.id===id));
+      for (const id of removedRooms) await db.delete("rooms", id);
+      if (newRoomNames.length) { const savedRooms = await db.insert("rooms", newRoomNames.map(name=>({project_id:projId,name}))); S.rooms = [...S.rooms.filter(r=>r.project_id!==projId||keptRooms.find(x=>x.id===r.id)), ...savedRooms]; }
+      else S.rooms = S.rooms.filter(r=>r.project_id!==projId||keptRooms.find(x=>x.id===r.id));
+      S.activeProjectId = projId; S.view = "ffe"; S.modal = null;
+      toast("Project saved");
+      render();
+    } catch(e) { toast("Error: "+e.message, false); }
+  });
+
+  document.getElementById("pf-cancel")?.addEventListener("click", () => { S.modal=null; render(); });
+
+  document.getElementById("btn-add-cc")?.addEventListener("click", () => { const f=getCurrentForm(); f.clientContacts.push({id:uid(),role:"Co-Owner",name:"",email:"",phone:"",notes:""}); S.modal.data=f; render(); });
+  document.getElementById("btn-add-gc")?.addEventListener("click", () => { const f=getCurrentForm(); f.gcContacts.push({id:uid(),role:"Site Superintendent",name:"",email:"",phone:"",notes:""}); S.modal.data=f; render(); });
+  document.querySelectorAll("[data-rm-contact]").forEach(el => el.addEventListener("click", () => { const f=getCurrentForm(); const cid=el.dataset.rmContact,px=el.dataset.prefix; if(px==="cc")f.clientContacts=f.clientContacts.filter(c=>c.id!==cid); else f.gcContacts=f.gcContacts.filter(c=>c.id!==cid); S.modal.data=f; render(); }));
+
+  document.querySelectorAll("[data-grp]").forEach(el => el.addEventListener("click", () => { S.openGroup=el.dataset.grp; const f=getCurrentForm(); S.modal.data=f; render(); }));
+  document.querySelectorAll("[data-chip]").forEach(el => el.addEventListener("click", () => { const name=el.dataset.chip; const f=getCurrentForm(); if(f.rooms.some(r=>r.name===name))f.rooms=f.rooms.filter(r=>r.name!==name); else f.rooms.push({id:"new_"+uid(),name}); S.modal.data=f; render(); }));
+  document.querySelectorAll("[data-rm-room]").forEach(el => el.addEventListener("click", () => { const f=getCurrentForm(); f.rooms=f.rooms.filter(r=>r.id!==el.dataset.rmRoom); S.modal.data=f; render(); }));
+
+  const cr=document.getElementById("custom-room"), crb=document.getElementById("btn-add-room");
+  function addCustom(){const name=cr?.value.trim();if(!name)return;const f=getCurrentForm();if(!f.rooms.some(r=>r.name===name)){f.rooms.push({id:"new_"+uid(),name});S.modal.data=f;render();}else{if(cr)cr.value="";}}
+  if(cr)cr.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addCustom();}});
+  if(crb)crb.addEventListener("click",addCustom);
+}
+
+function bindItemForm() {
+  if (S.modal?.type !== "newItem" && S.modal?.type !== "editItem") return;
+  document.getElementById("if-cat")?.addEventListener("change", e => { const w=document.getElementById("cat-other-wrap"); if(w) w.style.display=e.target.value==="Other"?"block":"none"; });
+  document.getElementById("if-egnyte")?.addEventListener("input", e => { const ok=document.getElementById("egnyte-ok"); if(ok){ok.style.display=e.target.value.startsWith("http")?"block":"none"; ok.innerHTML=`✓ Valid &nbsp;<a href="${esc(e.target.value)}" target="_blank" style="color:var(--gold)">↗ Test</a>`;} });
+  document.getElementById("if-cancel")?.addEventListener("click", () => { S.modal=null; render(); });
+  document.getElementById("if-save")?.addEventListener("click", async () => {
+    const id = document.getElementById("if-id")?.value||"";
+    const name = document.getElementById("if-name")?.value.trim()||"";
+    if (!name) { alert("Item name required"); return; }
+    const catSel=document.getElementById("if-cat")?.value||"Furniture";
+    const catOther=document.getElementById("if-cat-other")?.value.trim()||"";
+    const item = {
+      project_id:S.activeProjectId,
+      room_id:document.getElementById("if-room")?.value||null,
+      category:catSel==="Other"&&catOther?`Other: ${catOther}`:catSel,
+      name, vendor_name:document.getElementById("if-vendor")?.value||"",
+      model:document.getElementById("if-model")?.value||"",
+      qty:Number(document.getElementById("if-qty")?.value)||1,
+      unit_cost:Number(document.getElementById("if-cost")?.value)||0,
+      client_status:document.getElementById("if-cs")?.value||"Pending",
+      gc_status:document.getElementById("if-gcs")?.value||"Not Submitted",
+      proc_status:document.getElementById("if-ps")?.value||"Specifying",
+      lead_weeks:document.getElementById("if-lead")?.value||null,
+      notes:document.getElementById("if-notes")?.value||"",
+      product_link:document.getElementById("if-link")?.value||"",
+      egnyte_url:document.getElementById("if-egnyte")?.value||""
+    };
+    try {
+      if (id) { await db.update("items",id,item); S.items=S.items.map(i=>i.id===id?{...i,...item,id}:i); }
+      else { const [saved]=await db.insert("items",item); S.items.push(saved); }
+      S.modal=null; toast("Item saved"); render();
+    } catch(e) { toast("Error: "+e.message,false); }
+  });
+}
+
+function bindVendorForm() {
+  if (S.modal?.type !== "newVendor" && S.modal?.type !== "editVendor") return;
+  document.getElementById("vf-cancel")?.addEventListener("click", () => { S.modal=null; render(); });
+  document.getElementById("vf-save")?.addEventListener("click", async () => {
+    const id = document.getElementById("vf-id")?.value||"";
+    const company = document.getElementById("vf-company")?.value.trim()||"";
+    if (!company) { alert("Company name required"); return; }
+    const vendor = {company,category:document.getElementById("vf-cat")?.value||"",rep_name:document.getElementById("vf-rep")?.value||"",rep_email:document.getElementById("vf-email")?.value||"",rep_phone:document.getElementById("vf-phone")?.value||"",trade_account:document.getElementById("vf-account")?.value||"",website:document.getElementById("vf-website")?.value||"",avg_lead_weeks:Number(document.getElementById("vf-lead")?.value)||null,notes:document.getElementById("vf-notes")?.value||""};
+    try {
+      if (id) { await db.update("vendors",id,vendor); S.vendors=S.vendors.map(v=>v.id===id?{...v,...vendor,id}:v); }
+      else { const [saved]=await db.insert("vendors",vendor); S.vendors.push(saved); S.vendors.sort((a,b)=>a.company.localeCompare(b.company)); }
+      S.modal=null; toast("Vendor saved"); render();
+    } catch(e) { toast("Error: "+e.message,false); }
+  });
+}
+
+function bindIntakeForm() {
+  if (S.modal?.type !== "newIntake") return;
+  // Voice dictation using Web Speech API
+  document.getElementById("btn-voice")?.addEventListener("click", () => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) { alert("Voice dictation not supported in this browser. Use Chrome or Safari."); return; }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = new SR();
+    rec.continuous = true; rec.interimResults = true; rec.lang = "en-US";
+    const btn = document.getElementById("btn-voice");
+    const ta  = document.getElementById("int-content");
+    btn.textContent = "🔴 Recording… (click to stop)";
+    btn.style.background = "#fdecea";
+    let final = ta.value;
+    rec.onresult = e => { let interim=""; for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript+" ";else interim+=e.results[i][0].transcript;} ta.value=final+interim; };
+    rec.onerror = () => { btn.textContent="🎤 Start Voice Dictation"; btn.style.background=""; };
+    rec.onend   = () => { btn.textContent="🎤 Start Voice Dictation"; btn.style.background=""; ta.value=final; };
+    rec.start();
+    btn.onclick = () => rec.stop();
+  });
+
+  document.getElementById("int-cancel")?.addEventListener("click", () => { S.modal=null; render(); });
+  document.getElementById("int-save")?.addEventListener("click", async () => {
+    const content = document.getElementById("int-content")?.value.trim()||"";
+    const egUrl   = document.getElementById("int-egnyte")?.value.trim()||"";
+    if (!content && !egUrl) { alert("Add a note or Egnyte link"); return; }
+    const record = {project_id:S.activeProjectId,room_id:document.getElementById("int-room")?.value||null,type:document.getElementById("int-type")?.value||"note",content,egnyte_url:egUrl};
+    try {
+      const [saved] = await db.insert("intake_records", record);
+      S.intakeRecords.unshift(saved);
+      S.modal=null; toast("Note saved"); render();
+    } catch(e) { toast("Error: "+e.message,false); }
+  });
+}
+
+// ─── COMMUNICATIONS ───────────────────────────────────────────────────────────
+function buildComms() {
+  const ap = S.projects.find(p => p.id === S.activeProjectId);
+  if (!ap) return `<div class="loading">Select a project first.</div>`;
+  const tab = S.commTab || "all";
+  const typeColors = {call:"#1a4f82",email:"#2d6a4f","site-visit":"#8a4400",meeting:"#4a2080",note:"#b8924e"};
+  const typeLabels = {call:"📞 Call",email:"✉️ Email","site-visit":"🏠 Site Visit",meeting:"👥 Meeting",note:"📝 Note"};
+  const filtered = S.communications.filter(c => tab === "all" || c.type === tab);
+  let html = `<div class="comm-tabs">
+    ${["all","call","email","site-visit","meeting","note"].map(t=>`<button class="comm-tab${tab===t?" active":""}" data-comm-tab="${t}">${t==="all"?"All":typeLabels[t]||t}</button>`).join("")}
+  </div>`;
+  if (!filtered.length) { html += `<div class="loading">No communications logged yet — add your first entry.</div>`; return html; }
+  filtered.forEach(c => {
+    const actions = c.action_items ? c.action_items.split("\n").filter(a=>a.trim()) : [];
+    const col = typeColors[c.type] || "#888";
+    html += `<div class="comm-card ${c.type||"note"}">
+      <div class="comm-type" style="color:${col}">${typeLabels[c.type]||c.type||"NOTE"}${c.contact_name?` · ${esc(c.contact_name)}`:""}</div>
+      <div class="comm-summary">${esc(c.summary||"")}</div>
+      ${actions.length?`<div class="comm-actions-block">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Action Items</div>
+        ${actions.map(a=>`<div class="comm-action-item"><input type="checkbox" onchange="this.closest('.comm-action-item').classList.toggle('done',this.checked)"/><span>${esc(a)}</span></div>`).join("")}
+      </div>`:""}
+      <div class="comm-meta">${new Date(c.created_at).toLocaleString()}</div>
+      <button class="btn-del" style="margin-top:6px" data-del-comm="${c.id}">Delete</button>
+    </div>`;
+  });
+  return html;
+}
+
+function buildCommForm() {
+  return `
+  <div class="form-grid">
+    <div class="field"><label>Type</label>
+      <select id="comm-type">
+        <option value="call">📞 Call</option>
+        <option value="email">✉️ Email</option>
+        <option value="site-visit">🏠 Site Visit</option>
+        <option value="meeting">👥 Meeting</option>
+        <option value="note">📝 Note</option>
+      </select>
+    </div>
+    <div class="field"><label>Contact Name</label><input id="comm-contact" placeholder="Who was this with?"/></div>
+    <div class="field full">
+      <label>Summary</label>
+      <textarea id="comm-summary" style="height:90px" placeholder="What was discussed or decided?"></textarea>
+      <button type="button" id="btn-comm-voice" style="margin-top:6px;padding:6px 14px;background:#f0ece4;border:1px solid #d0c8bc;font-size:12px;cursor:pointer">🎤 Dictate</button>
+    </div>
+    <div class="field full">
+      <label>Action Items (one per line)</label>
+      <textarea id="comm-actions" style="height:70px" placeholder="e.g. Laura to confirm fabric selection&#10;GC to provide blocking schedule"></textarea>
+    </div>
+  </div>
+  <div class="form-footer">
+    <button type="button" class="btn" id="comm-cancel">Cancel</button>
+    <button type="button" class="btn btn-dark" id="comm-save">Save</button>
+  </div>`;
+}
+
+function bindCommForm() {
+  if (S.modal?.type !== "newComm") return;
+  document.getElementById("btn-comm-voice")?.addEventListener("click", () => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) { alert("Voice dictation not supported. Use Chrome or Safari."); return; }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = "en-US";
+    const btn = document.getElementById("btn-comm-voice");
+    const ta  = document.getElementById("comm-summary");
+    btn.textContent = "🔴 Recording… (click to stop)"; btn.style.background = "#fdecea";
+    let final = ta.value;
+    rec.onresult = e => { let interim=""; for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript+" ";else interim+=e.results[i][0].transcript;} ta.value=final+interim; };
+    rec.onerror = () => { btn.textContent="🎤 Dictate"; btn.style.background=""; };
+    rec.onend   = () => { btn.textContent="🎤 Dictate"; btn.style.background=""; ta.value=final; };
+    rec.start(); btn.onclick = () => rec.stop();
+  });
+  document.getElementById("comm-cancel")?.addEventListener("click", () => { S.modal=null; render(); });
+  document.getElementById("comm-save")?.addEventListener("click", async () => {
+    const summary = document.getElementById("comm-summary")?.value.trim()||"";
+    if (!summary) { alert("Please add a summary"); return; }
+    const record = {project_id:S.activeProjectId,type:document.getElementById("comm-type")?.value||"note",contact_name:document.getElementById("comm-contact")?.value.trim()||"",summary,action_items:document.getElementById("comm-actions")?.value.trim()||""};
+    try {
+      const [saved] = await db.insert("communications", record);
+      S.communications.unshift(saved);
+      S.modal=null; toast("Activity logged"); render();
+    } catch(e) { toast("Error: "+e.message,false); }
+  });
+}
+
+// ─── BOOT ─────────────────────────────────────────────────────────────────────
+loadAll();
+</script>
+
+
+</body></html>
